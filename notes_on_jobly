@@ -1,0 +1,291 @@
+Component Heirarch was the first thing we had to tackle after the initial setup 
+
+have a general diagram of how we will tackle the component and state that we will need to utilize to get this working correctly 
+
+_________________________________________________________________
+Step two : Make an API helper 
+
+this is going to be our liason between our front end and our backend 
+it will be easier to debug if we make use of an apiHelper class that will have methods that we can use to interact with the database instead of using sql scattered all over our routes and components 
+
+they provide us with a helper file to get us started that is similar to that of the one from the assessment #9 
+
+we are going to need to add to these methods to have all of our database functionality available 
+
+_________________________________________________________________
+Step three : Make your Routes file 
+
+we need to make the following routes 
+
+/ 
+- Homepage with a simple welcome message 
+
+/companies
+-List all companies 
+
+/companies/apple 
+-view details of this company
+
+/jobs 
+-List all jobs 
+
+/login 
+-Login/signup 
+
+/signup
+-Signup Form 
+
+/profile
+Edit Profile Page 
+
+Need to add in a navigation bar that lets us jump around the site 
+
+Went ahead and added in react strap which is what I will be using to style the components 
+I was able to add in a bunch of dummy components and navigate around the components 
+
+I think I understand navigation a little better now 
+
+_________________________________________________________________
+Step Four: Companies and Company Detail 
+
+This is the first big step going to need to flesh out the companies component and the company detail, company list and company card 
+
+I didnt even make a company detail or company card component 
+
+The general idea is that the company list will show us a long page of companies , each company has a company card component that has company data 
+
+we get the company data from the API helper and we want to map through this data to put as many pieces as we need to on the page 
+
+ill start by just making the company card component since it wont require the use of state and just needs some prop data 
+
+I think im going to have to add in a useEffect in the companies list route to get the companies so I can map through and display each one as a card 
+have access to this data 
+
+{
+      "handle": "anderson-arias-morrow",
+      "name": "Anderson, Arias and Morrow",
+      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+      "numEmployees": 245,
+      "logoUrl": "/logos/logo3.png"
+}
+
+added this in 
+
+  static async getAllCompanies() {
+    let res = await this.request(`companies/`);
+    return res.data;
+  }
+
+in the api helper going to try adding a useEffect to load the data in to our companies list component 
+
+i had to add the search form the loading spinner and the updated company list to get it all to work 
+
+this thing is pretty intense 
+
+come back and flesh out the company details page. Kind of tired lets clean up the room and head to bed 
+
+this loading case is really important 
+if (!company) return <LoadingSpinner/>
+
+without this it breaks the application because it will not load fast enough for react 
+
+I got the routes to work so that they display the right information for a company but now I need to move on to the jobs routes which can also be used on a company detail page so I can make jobList component which will display the data for the jobs but i also need a job card and then a company can have several cards so another component which has jobcards 
+
+_________________________________________________________________
+Step 5: Jobs 
+_________________________________________________________________
+
+JobList 
+JobCardsList 
+JobCard 
+
+We can go from the bottom up 
+
+and start with a simple JobCard component to just display data 
+
+right now it is just accepting some simple props but im going to have to pass down data from the job list where i can make an api call to get the cards 
+I also have to write a method that will use the database to grab the job data 
+
+that looks like this 
+
+  static async getJobs(title){
+    let res = await this.request(`jobs`,{title});
+    return res.jobs;
+
+  }
+
+we get a response back from the database and we want to make it so we can search by title if we need to 
+
+lets make a jobList now that can grab our jobs data using this method and put it into a piece of state 
+
+made a simple job list that is currently displaying cards need to add in the search form so we can search by titles and we want to be able to display all of the jobs that are held by a company as well so we need a jobcardlist as well 
+
+we can use our generic search form and pass down our searchJob function which will be used to specifythat we are searching for jobs 
+this is why we need a jobcardlist because we want to update the jobs state and navigate to a different route based on the search term we give it with only jobs matching that query
+
+
+ok i got it loading but my state isnt maintained for longer than a second and im not 100 percent why 
+
+im dumb it was a preventDefault that I forgot to throw in my searchform -_-
+
+the companies and jobs pages are working as I expect them to right now 
+
+my routes and navlinks are all over the place at the moment so I am going to make some adjustments to the file structure 
+
+got the routes working and made a private routes component to be able to handle the authentication that takes place in the next step 
+_________________________________________________________________
+Step Six: Current User
+_________________________________________________________________
+
+Things to do:
+
+Make forms for logging in and signing up
+
+In the navigation, show links to the login and signup forms if a user is not currently logged in.
+
+If someone is logged in, show their username in the navigation, along with a way to log out.
+
+Have the homepage show different messages if the user is logged in or out.
+
+When you get a token from the login and register processes, store that token on the JoblyApi class, instead of always using the hardcoded test one. You should also store the token in state high up in your hierarchy; this will let use use an effect to watch for changes to that token to kick off a process of loading the information about the new user.
+
+
+Suggested strategy is to use useContext to get the user context at the top level of App 
+also they want us to create methods for login signup and logout that we can pass down where we need them 
+track token in a piece of state 
+we also want state for currentUser 
+
+if the token state changes then we update the currentUser state 
+
+
+i think i want to tackle the forms first so we can get through the login and signup forms before dealing with the useContext 
+
+made our basic login form and need to add in the login method from the app component now 
+which is going to rely on our login method from the jobly api class 
+
+  static async login(data){
+    let res = await this.request(`auth/token`,data,"post");
+    return res.token
+  }
+
+we import and use this in our app to check if we are logging in successfully 
+
+not to be careful with typos when setting the usestate object for form data because I had usename and i couldnt figure out why my login was not working 
+
+the login is working but i need to be able to keep track of it ,
+i know it works because it returns success as well as redirecting me to the correct page 
+
+this is where I will need to set some context to keep track of the user 
+
+could keep track in the state or local storage as well which seems to be the next section 
+can refer back to the custom hooks section and how we used localStorage to track certain object data 
+
+we are successfully getting back the token from the login so we can store it in our state and lets set up our custom localStorage hook to get it all working together then I will do the sign up page 
+
+our token has the username data so we can grab that and use it for the user while they are on the site 
+
+static async getCurrentUser(username){
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
+we are going to add in a use effect to load in user data but first we need another method on our api so that is shown above 
+
+added in the useEffect so now I can see that the username is correctly deconstructed from password once entered now I can incorporate my useLocalStorage hook to set the item in local storage in case a user navigates away from the page they are still logged in once they return and this way we can also keep track of where the user might be 
+
+added in the signup page which is now working but still need to incorporate the token storage logic 
+
+add in our user context
+
+_________________________________________________________________
+Step 7: protecting routes and local storage
+_________________________________________________________________
+
+
+we then have to create a private route and some functionality to create a hidden navigation menu only for people that are logged in 
+
+import React, {useContext} from 'react';
+import {Route,Redirect} from "react-router-dom";
+import UserContext from "../authentication/UserContext";
+
+const PrivateRoute = ({exact,path,children}) => {
+    const {currentUser} = useContext(UserContext);
+
+    if(!currentUser){
+        return <Redirect to="login" />;
+    }
+    return (
+        <Route exact={exact} path={path}>
+            {children}
+        </Route>
+    )
+}
+export default PrivateRoute;
+
+our Private route component uses the useContext to grab our user data 
+our private route redirects to login if we are trying to login from elsewhere 
+
+lets make it so that we dont have any nav links showing if we dont have the user data loggedin 
+
+so we fixed that issue and I had to add a set time out upon the login because i wasnt being redirected correctly by the push history method 
+
+_________________________________________________________________
+Step 8: Profile Form
+_________________________________________________________________
+
+need to make the profile form now 
+and we are going to need an additional method to interact with our database 
+
+
+static async updateProfile(username,data){
+    let res = await this.request(`users/${username}`,data,"patch");
+    return res.user;
+  }
+
+this will let us patch the data 
+
+got the patch working 
+
+should add an alert or something to let the user know that their profile has been updated 
+maybe once I incorporate some bootstrap i will do that 
+
+_________________________________________________________________
+Step 9: Job Applications
+_________________________________________________________________
+
+Going to need to add buttons and load in the ids for the jobs that a user has already applied for to distinguish them from the ones they have not yet applied for 
+
+going to need to add some functionality to our job card to have a button so the apply button shows up in multiple places 
+
+we are also going to need an additional api method 
+and we want to update the UserContext so that we can also keep track of which jobs a user has applied to 
+first I will need to add an id to the jobs so we can distinguish by the id 
+
+need two methods , one to check the jobs already applied for and one to apply 
+
+static async applyToJob(username,jobId){
+    await this.request(`users/${username}/jobs/${jobId}`,{},"post");
+  }
+
+we then add some state to our top level app component to be able to keep track of the jobs that have been applied for as well as passing them down into the job card component through the user context 
+
+we have to make sure to load in the application data when we load in the user data initially 
+we are now able to apply for jobs 
+
+
+below is the additions we made to the job card class 
+
+    const {hasAppliedToJob,applyToJob} = useContext(UserContext);
+    const [applied,setApplied] = useState();
+    
+    useEffect(function updateAppliedStatus(){
+        setApplied(hasAppliedToJob(id));
+    },[id,hasAppliedToJob])
+
+    async function handleApply(evt){
+        if(hasAppliedToJob(id)) return;
+        applyToJob(id);
+        setApplied(true);
+    }
+  
+  
