@@ -1,3 +1,4 @@
+import { Button, Input, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 
 function SearchForm({ searchFor }) {
@@ -19,15 +20,21 @@ function SearchForm({ searchFor }) {
   return (
       <div>
         <form onSubmit={handleSubmit}>
-          <input
+          <TextField
+              variant="outlined"
+              size="small"
               name="searchTerm"
               placeholder="Enter search term"
               value={searchTerm}
               onChange={handleChange}
           />
-          <button type="submit">
+          <Button 
+          variant="outlined"
+          color="secondary"
+          size="large"
+          type="submit">
             Submit
-          </button>
+          </Button>
         </form>
       </div>
   );

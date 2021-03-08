@@ -1,50 +1,15 @@
 import React, {useState,useEffect} from 'react';
 import CompanyCard from './CompanyCard';
-import {ListGroup,ListGroupItem} from 'reactstrap'
 import JoblyApi from '../api/Api'
 import SearchForm from '../common/SearchForm'
 import LoadingSpinner from '../common/LoadingSpinner'
 
-// const CompanyList = () => {
-//   const [companies,setCompanies] = useState(null);
-
-//   useEffect(function loadCompanies(){
-//     getCompanyDetails();
-//   },[]);
-
-//   async function getCompanyDetails(name){
-//     let searchedCompanies = await JoblyApi.getCompanies(name);
-//     setCompanies(searchedCompanies);
-//   }
-
-
-//   return(
-//         <div>
-//             <ListGroup>
-//             {companies.map(company => (
-//               <ListGroupItem>
-//               <CompanyCard name={company.name} description={company.description} url={company.logoUrl} handle={company.handle}/>
-//               </ListGroupItem>
-//             ))}
-//           </ListGroup>
-//         </div>
-        
-//   )
-// }
-
-// export default CompanyList;
-
-function CompanyList() {
-  console.debug("CompanyList");
-
+const CompanyList = () => {
   const [companies, setCompanies] = useState(null);
-
-  useEffect(function getCompaniesOnMount() {
-    console.debug("CompanyList useEffect getCompaniesOnMount");
+  useEffect(function getCompaniesOnLoad() {
     search();
   }, []);
-
-  /** Triggered by search form submit; reloads companies. */
+  
   async function search(name) {
     let companies = await JoblyApi.getCompanies(name);
     setCompanies(companies);
@@ -53,23 +18,23 @@ function CompanyList() {
   if (!companies) return <LoadingSpinner />;
 
   return (
-      <div className="CompanyList col-md-8 offset-md-2">
+      <div>
         <SearchForm searchFor={search} />
         {companies.length
             ? (
-                <div className="CompanyList-list">
-                  {companies.map(c => (
+                <div>
+                  {companies.map(company => (
                       <CompanyCard
-                          key={c.handle}
-                          handle={c.handle}
-                          name={c.name}
-                          description={c.description}
-                          logoUrl={c.logoUrl}
+                          key={company.handle}
+                          handle={company.handle}
+                          name={company.name}
+                          description={company.description}
+                          logoUrl={company.logoUrl}
                       />
                   ))}
                 </div>
             ) : (
-                <p className="lead">Sorry, no results were found!</p>
+                <p>Sorry, no results were found!</p>
             )}
       </div>
   );

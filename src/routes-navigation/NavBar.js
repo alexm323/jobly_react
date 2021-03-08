@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-// import "./NavBar.css";
 import { NavLink } from "react-router-dom";
-import { Navbar, Nav, NavItem } from "reactstrap";
 import UserContext from "../authentication/UserContext";
 
 
@@ -36,13 +34,15 @@ const NavBar = ({logout}) => {
     );
   }
   return (
-    <Navbar>
-      <NavLink to='/'>
+      <div>
+        <NavLink to='/'>
       Jobly
       </NavLink>
 
       {currentUser ? loggedInNavigation() : loggedOutNavigation()}
-    </Navbar>
+      </div>
+      
+    
   )
 }
 

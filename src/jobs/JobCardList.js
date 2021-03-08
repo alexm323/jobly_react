@@ -5,7 +5,7 @@ const JobCardList = ({jobs}) => {
     return(
         <div>
         {jobs.map(job => (
-            <JobCard key ={job.handle} id = {job.id} title={job.title} salary={job.salary} />
+            <JobCard key ={job.handle} id = {job.id} title={job.title} salary={job.salary} companyName={job.companyName} />
         ))}
         </div>
     )
