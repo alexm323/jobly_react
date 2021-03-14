@@ -1,4 +1,3 @@
-import { Button, Card, CardContent } from '@material-ui/core';
 import React, {useContext,useEffect,useState} from 'react';
 import UserContext from '../authentication/UserContext';
 
@@ -19,22 +18,20 @@ const JobCard = ({id,title,salary,equity,companyName}) => {
     }
 
     return(
-        <Card variant="outlined">
-            <CardContent >
+        <div variant="outlined">
             <h2>{title}</h2>
             <h3>Company: {companyName}</h3>
             <h3>Salary: {salary}</h3>
-            </CardContent>
         
-        <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleApply}
-            disabled={applied}
-          >
-            {applied ? "Applied" : "Apply"}
-          </Button>
-        </Card>
+            <button
+                variant="contained"
+                color="secondary"
+                onClick={handleApply}
+                disabled={applied}
+            >
+                {applied ? "Applied" : "Apply"}
+            </button>
+        </div>
     )
 }
 

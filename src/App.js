@@ -8,6 +8,9 @@ import UserContext from './authentication/UserContext';
 import useLocalStorage from './customHooks/useLocalStorage'
 import LoadingSpinner from './common/LoadingSpinner';
 import './App.css'
+
+
+
 const App = () => {
   const [userInfoLoaded,setUserInfoLoaded] = useState(false)
   const [applicationIds, setApplicationIds] = useState(new Set([]));

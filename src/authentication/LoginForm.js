@@ -18,7 +18,7 @@ const LoginForm = ({login}) => {
         // console.log('Submitted')
         if(res.success){
         // I always seem to run into issues with async and await this is a temp fix
-            setTimeout(() => history.push("/companies"),500)
+            history.push("/companies")
             
         }
     }
