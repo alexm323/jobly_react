@@ -17,9 +17,10 @@ function SearchForm({ searchFor }) {
   }
 
   return (
-      <div>
+      <div class="shadow flex w-1/2 bg-gray-200">
         <form onSubmit={handleSubmit}>
-          <input
+          <input 
+          class="w-1/2 rounded p-2"
               type="text"
               size="small"
               name="searchTerm"
@@ -28,6 +29,7 @@ function SearchForm({ searchFor }) {
               onChange={handleChange}
           />
           <button 
+          class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400"
           variant="outlined"
           color="secondary"
           size="large"
@@ -35,6 +37,7 @@ function SearchForm({ searchFor }) {
             Submit
           </button>
         </form>
+      
       </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import {Link } from "react-router-dom";
 import UserContext from "../authentication/UserContext";
 
 const NavBar = ({logout}) => {
@@ -9,14 +9,28 @@ const NavBar = ({logout}) => {
     return(
       <div>
         
-          <NavLink to="/companies">Companies</NavLink>
+        <div className="flex justify-between items-center py-4 bg-blue-900">
+          <div className="flex-shrink-0 ml-10 cursor-pointer">
+            
+            <Link to='/' className="ml-1 text-3xl text-blue-100 font-semibold">Jobly</Link>
+          </div>
 
-          <NavLink to="/jobs">Jobs</NavLink>
-
-          <NavLink to="/profile">Profile</NavLink>
-
-          <NavLink to="/" onClick={logout}>Logout {currentUser.firstName || currentUser.username}</NavLink>
-        
+          <i className="fas fa-bars fa-2x visible md:invisible mr-10 md:mr-0 text-blue-200 cursor-pointer"></i>
+          <ul className="hidden md:flex overflow-x-hidden mr-10 font-semibold">
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300" to="/companies">Companies</Link>
+            </li>
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300" to="/jobs">Jobs</Link>
+            </li>
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300" to="/profile">Profile</Link>
+            </li>
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300"  to="/" onClick={logout}>Logout {currentUser.firstName}</Link>
+            </li>
+          </ul>
+        </div>
       </div>
     )
   }
@@ -25,9 +39,20 @@ const NavBar = ({logout}) => {
     return (
       <div>
         
-        <NavLink variant="contained" to="/login">Login</NavLink>
-
-        <NavLink variant="contained" to="/signup">Sign Up</NavLink>
+        <div className="flex justify-between items-center py-4 bg-blue-900">
+          <div className="flex-shrink-0 ml-10 cursor-pointer">
+            
+          <Link to='/' className="ml-1 text-3xl text-blue-100 font-semibold">Jobly</Link>
+          </div>
+          <ul className="hidden md:flex overflow-x-hidden mr-10 font-semibold">
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300" to="/login">Login</Link>
+            </li>
+            <li className="mr-6 p-1">
+              <Link className="text-white hover:text-blue-300" to="/signup">Signup</Link>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }
@@ -35,20 +60,7 @@ const NavBar = ({logout}) => {
 
 
       <div>
-        
-      
-          
-            <h3 variant='h3'>
-              Jobly
-            </h3>
-            <h5 align='right' variant='h5'>
-              {currentUser ? loggedInNavigation() : loggedOutNavigation()}
-            </h5>
-            
-          
-      
-
-      
+        {currentUser ? loggedInNavigation() : loggedOutNavigation()} 
       </div>
       
     
