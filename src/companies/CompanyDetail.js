@@ -28,12 +28,19 @@ const CompanyDetail = () => {
 
 
     return(
+        <div className='flex justify-center'>
         <div>
-            <h1>Company:{handle}</h1>
-            <h3>{company.name}</h3>
-            <h3>{company.description}</h3>
-
+            <div className="bg-red-100 mt-5 text-black-700 rounded p-3">
+            
+            <h1 className='text-2xl py-2'>Company: {company.name}</h1>
+            <h3 className='text-1xl py-2'>{company.description}</h3>
+            </div>
+            <div className="">
             <JobCardList jobs={company.jobs} />
+            </div>
+
+            
+            </div>
         </div>
         
     )

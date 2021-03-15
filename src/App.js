@@ -48,10 +48,10 @@ const App = () => {
       let token = await JoblyApi.login(loginData);
       
       setToken(token);
-      console.log(`token: ${token}`)
+      // console.log(`token: ${token}`)
       return {success:true}
     } catch (err) {
-      console.log("login failed",err);
+      alert("login failed",err);
       return {success:false,err}
     }
     

@@ -17,19 +17,19 @@ function SearchForm({ searchFor }) {
   }
 
   return (
-      <div className="shadow flex w-1/2 bg-gray-200">
-        <form onSubmit={handleSubmit}>
+    
+      <div className='flex justify-center  mt-10'>
+        <form className="shadow w-1/2" onSubmit={handleSubmit}>
           <input 
-          className="w-1/2 rounded p-2"
+              className="bg-blue-200 rounded p-2 w-3/4"
               type="text"
-              size="small"
               name="searchTerm"
               placeholder="Enter search term"
               value={searchTerm}
               onChange={handleChange}
           />
           <button 
-          className="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400"
+          className="w-1/4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           variant="outlined"
           color="secondary"
           size="large"
@@ -37,8 +37,8 @@ function SearchForm({ searchFor }) {
             Submit
           </button>
         </form>
-      
       </div>
+      
   );
 }
 

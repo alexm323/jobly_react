@@ -3,9 +3,9 @@ import JobCard from './JobCard';
 
 const JobCardList = ({jobs}) => {
     return(
-        <div>
+        <div className=''>
         {jobs.map(job => (
-            <JobCard key ={job.handle} id = {job.id} title={job.title} salary={job.salary} companyName={job.companyName} />
+            <JobCard key ={job.id} id = {job.id} title={job.title} salary={job.salary} equity={job.equity} companyName={job.companyName} />
         ))}
         </div>
     )

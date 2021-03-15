@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink,Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import UserContext from "../authentication/UserContext";
 
 function HomePage() {

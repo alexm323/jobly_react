@@ -33,7 +33,7 @@ const LoginForm = ({login}) => {
     return (
         <div className=' flex justify-center'>
         <div className="w-1/3 max-w-xs my-5 ">
-            <h2 className='text-3xl my-5'>Welcome Back!</h2>
+            <h2 className='text-3xl my-5 '>Welcome Back!</h2>
             <form 
             className="bg-blue-900  shadow-md rounded my-10 px-8 pt-6 pb-8 mb-4"
             onSubmit={handleSubmit}>

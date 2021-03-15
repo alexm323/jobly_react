@@ -6,21 +6,22 @@ const CompanyCard = ({name,description,logoUrl,handle}) => {
   const src = require(`.${url}`).default;
 
     return (
-        <div >
+      <div className='flex justify-center'>
+        <div className='w-1/2'>
+        <div className='w-full bg-blue-200 border border-blue-600 my-6 rounded'>
           
-          <div class='p-10'>
-          <div class=" w-full lg:max-w-full lg:flex">
-            <Link to={`/companies/${handle}`}>{name}</Link>
-              
-              <p>
-                <b>{description}</b>
-                <b>{console.log(logoUrl)}</b>
-                <img src={src} alt="logo" height="25px" width='25px' />
-              </p>
+          <div className='p-6'>
+            <div className="flex justify-between h-10">
+              <Link className='underline text-2xl' to={`/companies/${handle}`}>Company: {name}</Link>
+              <img  className=''src={src} alt="logo" />
+            </div>
+          </div>
+          <div className='flex bg-red-100'>
+          <p className=' text-2xl mb-4 w-full'>{description}</p>
           </div>
           </div>
-          
-        </div>
+          </div>
+          </div>
       );
 }
 export default CompanyCard;

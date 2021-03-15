@@ -16,13 +16,16 @@ const JobList = () => {
 
     if(!jobs) return <LoadingSpinner/>
     return (
-        <div>
-        <h1>Welcome to the joblist page!</h1>
+        <div >
         <SearchForm searchFor={searchJobs} />
+        <div className='flex justify-center'>
+        <div className='w-1/2'>
         {jobs.length
             ? <JobCardList jobs={jobs} />
             : <p className="lead">Sorry, no results were found!</p>
         }
+        </div>
+        </div>
         </div>
     )
 }
